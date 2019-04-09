@@ -834,7 +834,7 @@ axis ij/xy
 
 ## Advance 2D plotting
 
-![1554806557250](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\1554806557250.png)
+![1554806557250](/img/1554806557250.png)
 
 
 
@@ -903,7 +903,7 @@ subplot(3,1,3); bar3(y);title('A 3Dbar chart of vector y');	%3d show of bar char
 
 #### stacked and horizontal bar chart
 
-![1554809411675](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\1554809411675.png)
+![1554809411675](/img/1554809411675.png)
 
 ```matlab
 x=[1 2 5 4 8];y=[x;1:5];
@@ -943,7 +943,7 @@ subplot(1,2,1);stairs(y);
 subplot(1,2,2);stem(y);
 ```
 
-![1554810294882](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\1554810294882.png)
+![1554810294882](/img/1554810294882.png)
 
 
 
@@ -974,7 +974,7 @@ text(0,0,"LOVE",'Color','w','FontSize',80,'FontWeight','bold','HorizontalAlignme
 
 `meshgrid()`     `imagesc()`
 
-![1554813251988](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\1554813251988.png)
+![1554813251988](/img/1554813251988.png)
 
 ```matlab
 [x,y]=meshgrid(-3:.2:3,-3:.2:3);
@@ -1010,9 +1010,9 @@ figure;mesh(X,Y,Z);title('Mesh');
 figure;surf(X,Y,Z);title('Surf');
 ```
 
-![1554814707216](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\1554814707216.png)
+![1554814707216](/img/1554814707216.png)
 
-![1554814715398](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\1554814715398.png)
+![1554814715398](/img/1554814715398.png)
 
 ### Contour
 
