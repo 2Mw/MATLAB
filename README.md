@@ -1038,3 +1038,321 @@ view(-45,20);		%View angle
 ### polygons
 
 too difficult
+
+## Polynomial differentiation and integration
+
+多项式的微分和积分
+
+> 这个貌似不支持对于负指数幂运算
+
+### Polynomial format
+
+use row vector to delegate the polynomial
+$$
+f(x)=9x^3-5x^2+3x+7(-2≤x≤5)
+$$
+
+```matlab
+a=[9 -5 3 7];x=-2:0.01:5;
+f=polyval(a,x);
+plot(x,f,'LineWeight',2);
+```
+
+### Polynomial Differentiation(微分)
+
+$$
+f(x)=5x^4-2x^2+1
+$$
+
+`polyder()`
+
+```matlab
+a=[5 0 -2 0 1];
+polyder(a);
+polyval(a,7)  % f'(7)
+```
+
+Exercise
+$$
+f(x)=(20x^3-7x^2+5x+10)(4x^2+12x-3)
+$$
+Q: what is it's derivative for -2≤x≤1
+
+```matlab
+a=[20 -7 5 10];b=[4 12 -3];
+c=conv(a,b);x=-2:0.01:1;
+hold on
+f=polyval(c,x);%f(x)
+plot(x,f,'r-.');xlabel('x');ylabel('f(x)');
+f1=polyval(polyder(c),x);%f'(x)
+plot(x,f1);legend('f(x)','f(x)');
+```
+
+### Polynomial integration
+
+`polyint(p,const)` 给p积分，并且添加积分
+
+```matlab
+p = [5 0 -2 0 1];
+polyint(p,2)
+```
+
+### Numerical Differentiation
+
+> 数值积分和多项式积分的区别就在于多项式积分无法对于比如三角函数这些来进行积分或者微分
+
+`diff()`： get the gap of vector
+
+#### Find a *f'(x)* over an interval [0,2π]
+
+example **sin'(x)**
+
+```matlab
+h=0.5;x=0:h:2*pi;
+y=sin(x);m = diff(y)./diff(x);
+```
+
+### Multiple Derivatives(多阶导)
+
+```matlab
+x=-2:0.01:2;y=x.^3;
+m=diff(y)./diff(x);
+m2=diff(m)./diff(x(1:end-1));
+plot(x,y,x(1:end-1),m,x(1:end-2),m2);
+```
+
+### Numerical Integration
+
+#### Mid point rule
+
+ ```matlab
+h=0.01;x=0:h:2;
+midpoint=(x(1:end-1)+x(2:end))./2;
+y=4*midpoint.^3;
+s=sum(h*y)
+ ```
+
+#### Trapezoid rule(梯形法)
+
+```matlab
+h=0.05;x=0:h:2;y=4*x.^3;
+s=h*trapz(y)
+```
+
+`trapz()`的作用是将两个数字取平均
+
+### 1/3 Simpson‘s 
+
+![1555153538396](img/1555153538396.png)
+
+```matlab
+h=0.05;x=0:h:2;y=4*x.^3;
+s=h/3*(y(1)+2*sum(y(3:2:end-2))+4*sum(y(2:2:end))+y(end))
+```
+
+### Comparison
+
+![1555153974444](img\comp.png)
+
+### Function methods
+
+`integral()`
+
+```matlab
+y=@(x)1./(x.^3-2*x-5);
+integral(y,0,2)
+```
+
+#### Double and Triple integrals
+
+`integral2()`
+$$
+f(x,y)=\int_{0}^{π}\int_{π}^{2π}(ysin(x)+xcos(y))dxdy
+$$
+
+```matlab
+f=@(x,y)y.*sin(x)+x.*cos(y);
+integral2(f,pi,2*pi,0,pi);
+```
+
+`integral3()` 类似于二重积分
+
+## Equation problem
+
+### Symbolic Approach
+
+use symbol to sign as variables.
+
+`syms` or `sym()`
+
+```matlab
+syms x
+x+x+x
+(x+x+x)/4
+```
+
+
+
+### Root find
+
+emmbaded function:
+
+`solve()`  this eq y=x*sin(x)-x=0
+
+```matlab
+syms x;
+y=x*sin(x)-x;
+solve(y,x)
+```
+
+
+
+#### Multiple Equations
+
+$$
+x-2y=5\\
+x+y=6
+$$
+
+```matlab
+syms x y;
+eq1 = x - 2 * y -5;
+eq2 = x + y - 6;
+A = solve(eq1,eq2,x,y);
+A.x
+A.y
+```
+
+$$
+ax^2-b=0
+$$
+
+```matlab
+syms x a b
+solve(a*x^2-b)
+% This is answer
+  b^(1/2)/a^(1/2)
+ -b^(1/2)/a^(1/2)
+```
+
+if you need to show 'b'
+
+```matlab
+syms x a b
+solve(a*x^2-b,b)
+
+% End
+ans = a*x^2
+```
+
+$$
+(x-a)^2+(y-b)^2 = r^2
+$$
+
+```matlab
+syms x y a b r;
+eq = (x-a)^2+(y-b)^2-r^2;
+solve(eq,x)
+```
+
+$$
+A=\begin{vmatrix}
+a&b\\
+c&d
+\end{vmatrix}
+$$
+
+求A的逆矩阵
+
+```matlab
+syms a b c d
+A = [a b;c d];
+inv(A)
+```
+
+### Symbolic differentition
+
+$$
+y=4x^5
+$$
+
+```matlab
+syms x;
+y=4*x^5;
+diff(y[,x])
+```
+
+### Symbolic Integration
+
+$$
+z=\int{x^2e^x}\,dx\\
+z(0)=0
+$$
+
+```matlab
+syms x;
+y=x^2*exp(x);
+z=int(y);
+z=z-subs(z,x,0);
+```
+
+### Function handle(@)
+
+`sin()` is a function, `@sin()` is a handle,it can be a parameter.
+
+```matlab
+function [y] = xy_plot(input,x);
+y=input(x);
+plot(x,y,'r--');
+xlabel('x');ylabel('f(x)');
+end
+```
+
+the parameter is a handle of **Function**
+
+### Numeric solver
+
+`fsolve(handle,guess,option)` 得到离guess值最近的解，如果两解距离guess相同，可能会得不到对应的值
+$$
+f(x)=xsin(x)+1.2x+0.3
+$$
+
+```matlab
+f = @(x)(x*sin(x)+1.2*x+0.3);
+fsolve(f,0)
+%fsolve(function handle, initial guess)
+f = @(x)(x^2);
+options = optimset('MaxIter',1e2,'TolFun',1e-10);
+fsolve(f,-0.1,options)
+%% 不加option时0.0063 加之后时1e-16
+```
+
+`fzero(handle,guess,option)` 只有通过x轴的解才会显示，**相切的不算**（用fsolve）
+
+```matlab
+%%
+f=@(x)(x.^2);
+fzero(f,0.1)
+
+%%
+f=@(x)(x.^2 - 4);
+fzero(f,0.1)
+```
+
+### Find roots of Polynomials
+
+`roots()`
+
+```matlab
+roots([r1 r2 r3 r4])
+```
+
+### Newton-Raphson Method
+
+$$
+x_{n+1}=x_n-\frac{f(x)}{f^{'}(x)}
+$$
+
+### Recursive Function
+
+easy
