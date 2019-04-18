@@ -1356,3 +1356,39 @@ $$
 ### Recursive Function
 
 easy
+
+## Linear equation and Linear system
+
+### Linear equation
+
+$$
+\begin{vmatrix}
+3&-2\\
+1&4
+\end{vmatrix}
+\begin{vmatrix}
+x\\y
+\end{vmatrix}
+=\begin{vmatrix}
+5\\
+11
+\end{vmatrix}
+\\相当于
+\\3x-2y=5
+\\x+4y=11
+$$
+
+
+
+### Gauss elimination
+
+```matlab
+A=[1 2 1;2 6 1;1 1 4];
+b=[2;7;3];
+R=rref([A b])
+```
+
+### LU Factorization
+
+
+
