@@ -1392,3 +1392,82 @@ R=rref([A b])
 
 
 
+## Digital Process
+
+### Type of Digital image
+
+Binary: only white and black (0-1)
+
+ Grayscale: diverse degree of grey (0-255)
+
+ True Color(RGB): 0x000000 - 0xffffff  ()
+
+### read and show Image
+
+```matlab
+i = imread('pout.tif');
+imshow(i)
+```
+
+### image info
+
+```matlab
+imageinfo('pout.tif');
+imtool('pout.tif')
+```
+
+### Image processing
+
+**image arithmetic**
+
+`immultiply()` 让图片变暗或者变亮
+
+```matlab
+i=imread('rice.png');
+subplot(1,2,1);imshow(i);
+j = immultiply(i,2);
+subplot(1,2,2);imshow(j);
+```
+
+`imadd()`
+
+两个图片相加的前提就是两个图片的像素都是一样的
+
+```matlab
+i=imread('cameraman.tif');
+j=imread('rice.png');
+k=imadd(i,j);
+subplot(1,3,1);imshow(i);
+subplot(1,3,2);imshow(k);
+subplot(1,3,3);imshow(j);
+```
+
+### image Histogram
+
+```matlab
+i=imread('pout.tif');
+imhist(i)
+```
+
+### Geometric Transformation
+
+rotate translate.etc
+
+![1555729658907](/img/1555729658907.png)
+
+
+
+*Functions*
+
+`imrotate()`
+
+```matlab
+i = imread('rice.png');
+subplot(1,2,1);imshow(i);
+j=imrotate(i,45,'bilinear');
+subplot(1,2,2);imshow(j);
+```
+
+### image write
+
+imwrite(i,name)
